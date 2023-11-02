@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create staging
-        uses: OctupusTechnologies/hetzner-action@1.0
+        uses: OctupusTechnologies/hetzner-action@1.3
         id: create_staging_server
         with:
           NAME_SERVER: staging
