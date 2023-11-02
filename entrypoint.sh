@@ -42,17 +42,17 @@ echo '{
   "zone_id": "'$HCLOUD_DNS_ZONE'"
 }'
 
-response=$(curl -X "POST" "https://dns.hetzner.com/api/v1/records" \
+curl -X "POST" "https://dns.hetzner.com/api/v1/records" \
      -H 'Content-Type: application/json' \
      -H 'Auth-API-Token: '$HETZNER_DNS_TOKEN'' \
      -d $'{
   "value": "'$SERVER_IPV4'",
-  "ttl": "86400",
+  "ttl": 86400,
   "type": "A",
   "name": "'$SERVER_NAME'",
   "zone_id": "'$HCLOUD_DNS_ZONE'"
-}')
-echo "$response"
+}'
+
 
 
 #hcloud context create my-hcloud-context --token $1
