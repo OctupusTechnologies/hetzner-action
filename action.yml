@@ -1,0 +1,40 @@
+name: 'Hetzner Cloud Action'
+description: 'This action creates a new Hetzner Cloud server of last backup and updates DNS record'
+inputs:
+  type_server:
+    description: 'Type of server'
+    required: true
+    default: 'cx11'
+  name_server:
+    description: 'Name of server'
+    required: true
+    default: 'staging'
+  hetzner_project_token:
+    description: 'Hetzner Cloud project token'
+    required: true
+  hetzner_ssh_key:
+    description: 'Hetzner Cloud SSH key'
+    required: true
+  hetzner_dns_zone:
+    description: 'Hetzner Cloud DNS zone'
+    required: true
+  hetzner_firewall:
+    description: 'Hetzner Cloud firewall'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.type_server }}
+    - ${{ inputs.name_server }}
+    - ${{ inputs.hetzner_project_token }}
+    - ${{ inputs.hetzner_ssh_key }}
+    - ${{ inputs.hetzner_dns_zone }}
+    - ${{ inputs.hetzner_firewall }}
+
+
+
+
+
+
+
