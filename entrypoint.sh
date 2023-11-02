@@ -24,13 +24,13 @@ echo "LAST Backup ID: $backup_id"
 
 
 echo "Create server $SERVER_NAME"
-echo "SERVER_NAME: $SERVER_NAME" >> $GITHUB_OUTPUT
+echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 output=$(hcloud server create --image $backup_id --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY)
 echo $output
 
 SERVER_IPV4=$(echo "$output" | awk '/IPv4:/ {print $2}')
 echo "Server IPv4: $SERVER_IPV4"
-echo "SERVER_IPV4: $SERVER_IPV4" >> $GITHUB_OUTPUT
+echo "SERVER_IPV4=$SERVER_IPV4" >> $GITHUB_OUTPUT
 echo "Create DNS entry for $SERVER_NAME"
 # Create Record
 # Creates a new record.
