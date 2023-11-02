@@ -10,7 +10,19 @@ HCLOUD_FIREWALL=$6
 echo "Set ENV VAR HCLOUD_TOKEN"
 export HCLOUD_TOKEN=$HCLOUD_TOKEN
 
-hcloud server list
+hcloud server list | grep $SERVER_NAME
+if [ $? -eq 0 ]; then
+  echo "Server $SERVER_NAME already exists"
+  exit 1
+fi
+
+echo "Save SSH Key"
+echo $HCLOUD_SSH_KEY > /tmp/hcloud_ssh_key
+chmod 600 /tmp/hcloud_ssh_key
+
+
+echo "Create server $SERVER_NAME"
+hcloud server create --image ubuntu-20.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY
 
 
 
