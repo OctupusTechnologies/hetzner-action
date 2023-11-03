@@ -7,6 +7,9 @@ HCLOUD_SSH_KEY=$4
 HCLOUD_DNS_ZONE=$5
 HCLOUD_FIREWALL=$6
 HETZNER_DNS_TOKEN=$7
+#optional
+HETZNER_CLOUD_COIFIG=$8
+
 
 echo "Set ENV VAR HCLOUD_TOKEN"
 export HCLOUD_TOKEN=$HCLOUD_TOKEN
@@ -25,7 +28,14 @@ echo "LAST Backup ID: $backup_id"
 
 echo "Create server $SERVER_NAME"
 echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
-output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY)
+
+if [ -n "$HETZNER_CLOUD_COIFIG" ]; then
+  echo "Create server with cloud-config"
+  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY --user-data-from-file $HETZNER_CLOUD_COIFIG )
+else
+  echo "Create server without cloud-config"
+  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY)
+fi
 echo $output
 
 SERVER_IPV4=$(echo "$output" | awk '/IPv4:/ {print $2}')
@@ -56,4 +66,3 @@ curl -X "POST" "https://dns.hetzner.com/api/v1/records" \
 
 
 #hcloud context create my-hcloud-context --token $1
-

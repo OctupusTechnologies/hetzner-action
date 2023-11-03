@@ -27,6 +27,9 @@ inputs:
   HETZNER_CLONE_SERVER:
     description: 'Hetzner Cloud server to clone'
     required: true
+  HETZNER_CLOUD_COIFIG:
+    description: 'Hetzner Cloud config file path'
+
 
 runs:
   using: 'docker'
@@ -40,6 +43,7 @@ runs:
     - ${{ inputs.HETZNER_FIREWALL_NAME }}
     - ${{ inputs.HETZNER_DNS_TOKEN }}
     - ${{ inputs.HETZNER_CLONE_SERVER }}
+    - ${{ inputs.HETZNER_CLOUD_COIFIG }}
 
 
 
