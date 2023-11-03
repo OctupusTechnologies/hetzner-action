@@ -29,6 +29,8 @@ echo "LAST Backup ID: $backup_id"
 echo "Create server $SERVER_NAME"
 echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 
+echo "print $HETZNER_CLOUD_COIFIG"
+
 if [ -n "$HETZNER_CLOUD_COIFIG" ]; then
   echo "Create server with cloud-config"
   output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY --user-data-from-file $HETZNER_CLOUD_COIFIG )
