@@ -8,7 +8,7 @@ HCLOUD_DNS_ZONE=$5
 HCLOUD_FIREWALL=$6
 HETZNER_DNS_TOKEN=$7
 #optional
-HETZNER_CLOUD_COIFIG=$8
+
 
 
 echo "Set ENV VAR HCLOUD_TOKEN"
@@ -29,14 +29,12 @@ echo "LAST Backup ID: $backup_id"
 echo "Create server $SERVER_NAME"
 echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 
-echo "print $HETZNER_CLOUD_COIFIG"
-echo "SHOW FILES"
-ls -la
 
 
-if [ -n "$HETZNER_CLOUD_COIFIG" ]; then
+# if cloud-config.yaml exists
+if [ -f "cloud-config.yaml" ]; then
   echo "Create server with cloud-config"
-  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY --user-data-from-file $HETZNER_CLOUD_COIFIG )
+  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml )
 else
   echo "Create server without cloud-config"
   output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY)
