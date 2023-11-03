@@ -27,6 +27,10 @@ inputs:
   HETZNER_CLONE_SERVER:
     description: 'Hetzner Cloud server to clone'
     required: true
+  HETZNER_DATACENTER:
+    description: 'Hetzner Cloud datacenter'
+    required: true
+    default: 'nbg1-dc3'
 
 runs:
   using: 'docker'
@@ -40,6 +44,7 @@ runs:
     - ${{ inputs.HETZNER_FIREWALL_NAME }}
     - ${{ inputs.HETZNER_DNS_TOKEN }}
     - ${{ inputs.HETZNER_CLONE_SERVER }}
+    - ${{ inputs.HETZNER_DATACENTER }}
 
 
 

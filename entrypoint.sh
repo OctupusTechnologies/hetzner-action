@@ -7,7 +7,8 @@ HCLOUD_SSH_KEY=$4
 HCLOUD_DNS_ZONE=$5
 HCLOUD_FIREWALL=$6
 HETZNER_DNS_TOKEN=$7
-#optional
+HETZNER_DATACENTER=$8
+
 
 
 
@@ -33,11 +34,12 @@ echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 
 # if cloud-config.yaml exists
 if [ -f "cloud-config.yaml" ]; then
+  chmod a+r cloud-config.yaml
   echo "Create server with cloud-config"
-  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml )
+  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml )
 else
   echo "Create server without cloud-config"
-  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall Web --datacenter nbg1-dc3 --ssh-key $HCLOUD_SSH_KEY)
+  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY)
 fi
 echo $output
 
