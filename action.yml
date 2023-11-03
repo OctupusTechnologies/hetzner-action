@@ -28,7 +28,8 @@ inputs:
     description: 'Hetzner Cloud server to clone'
     required: true
   HETZNER_CLOUD_COIFIG:
-    description: 'Hetzner Cloud config file path'
+    description: 'Hetzner Cloud config file path for cloud-init'
+    required: true
 
 
 runs:

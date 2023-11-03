@@ -30,6 +30,9 @@ echo "Create server $SERVER_NAME"
 echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 
 echo "print $HETZNER_CLOUD_COIFIG"
+echo "SHOW FILES"
+ls -la
+
 
 if [ -n "$HETZNER_CLOUD_COIFIG" ]; then
   echo "Create server with cloud-config"
