@@ -24,9 +24,6 @@ inputs:
   HETZNER_FIREWALL_NAME:
     description: 'Hetzner Cloud firewall'
     required: true
-  HETZNER_CLONE_SERVER:
-    description: 'Hetzner Cloud server to clone'
-    required: true
   HETZNER_DATACENTER:
     description: 'Hetzner Cloud datacenter'
     required: true
@@ -43,7 +40,6 @@ runs:
     - ${{ inputs.HETZNER_DNS_ZONE }}
     - ${{ inputs.HETZNER_FIREWALL_NAME }}
     - ${{ inputs.HETZNER_DNS_TOKEN }}
-    - ${{ inputs.HETZNER_CLONE_SERVER }}
     - ${{ inputs.HETZNER_DATACENTER }}
 
 
