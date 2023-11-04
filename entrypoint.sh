@@ -34,7 +34,7 @@ echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 
 # if cloud-config.yaml exists
 if [ -f "cloud-config.yaml" ]; then
-  chmod a+r cloud-config.yaml
+  sudo chmod a+r cloud-config.yaml
   echo "Create server with cloud-config"
   output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml )
 else
