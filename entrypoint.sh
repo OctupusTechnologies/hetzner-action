@@ -36,10 +36,10 @@ echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 if [ -f "cloud-config.yaml" ]; then
   sudo chmod a+r cloud-config.yaml
   echo "Create server with cloud-config"
-  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml --without-ipv6  )
+  output=$(hcloud server create --image 134381288 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml --without-ipv6  )
 else
   echo "Create server without cloud-config"
-  output=$(hcloud server create --image ubuntu-22.04 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --without-ipv6 )
+  output=$(hcloud server create --image 134381288 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --without-ipv6 )
 fi
 echo $output
 
@@ -48,15 +48,9 @@ echo "Server IPv4: $SERVER_IPV4"
 echo "SERVER_IPV4=$SERVER_IPV4" >> $GITHUB_OUTPUT
 echo "Create DNS entry for $SERVER_NAME"
 # Create Record
-# Creates a new record.
-echo '{
-  "value": "'$SERVER_IPV4'",
-  "ttl": 86400,
-  "type": "A",
-  "name": "'$SERVER_NAME'",
-  "zone_id": "'$HCLOUD_DNS_ZONE'"
-}'
+# Creates a new record DNS.
 
+#TODO Type DNS A or AAAA
 curl -X "POST" "https://dns.hetzner.com/api/v1/records" \
      -H 'Content-Type: application/json' \
      -H "Auth-API-Token: $HETZNER_DNS_TOKEN" \
