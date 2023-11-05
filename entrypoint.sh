@@ -36,10 +36,10 @@ echo "SERVER_NAME=$SERVER_NAME" >> $GITHUB_OUTPUT
 if [ -f "cloud-config.yaml" ]; then
   sudo chmod a+r cloud-config.yaml
   echo "Create server with cloud-config"
-  output=$(hcloud server create --image 134452507 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml --without-ipv6  )
+  output=$(hcloud server create --image $backup_id --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --user-data-from-file cloud-config.yaml --without-ipv6  )
 else
   echo "Create server without cloud-config"
-  output=$(hcloud server create --image 134452507 --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --without-ipv6 )
+  output=$(hcloud server create --image $backup_id --name $SERVER_NAME --type $SEVER_TYPE --firewall $HCLOUD_FIREWALL --datacenter $HETZNER_DATACENTER --ssh-key $HCLOUD_SSH_KEY --without-ipv6 )
 fi
 echo $output
 
