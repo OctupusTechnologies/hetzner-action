@@ -22,13 +22,12 @@ inputs:
     description: 'Hetzner Cloud DNS token'
     required: true
   HETZNER_FIREWALL_NAME:
-    description: 'Hetzner Cloud firewall'
+    description: 'Hetzner Cloud firewall example: staging-firewall, production-firewall'
     required: true
   HETZNER_DATACENTER:
     description: 'Hetzner Cloud datacenter'
     required: true
     default: 'nbg1-dc3'
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
